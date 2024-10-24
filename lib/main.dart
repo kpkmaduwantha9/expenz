@@ -1,4 +1,6 @@
+import 'package:expenz/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const KpApp());
@@ -9,22 +11,15 @@ class KpApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Expenz",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Inter",
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            "Data",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+    return ScreenUtilInit(
+      designSize: Size(393, 852),
+      child: MaterialApp(
+        title: "Expenz",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "Inter",
         ),
+        home: OnboardingScreen(),
       ),
     );
   }
