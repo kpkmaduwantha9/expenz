@@ -64,9 +64,9 @@ class _MainScreenState extends State<MainScreen> {
               child: Icon(
                 Icons.add,
                 color: kWhite,
-                size: 30
+                size: 20
                     .sp
-                    .clamp(30, 50), // Ensures the size is between 30 and 50
+                    .clamp(20, 30), // Ensures the size is between 30 and 40
               ),
             ),
             label: "",

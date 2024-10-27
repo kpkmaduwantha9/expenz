@@ -42,4 +42,30 @@ class Income {
     required this.time,
     required this.description,
   });
+
+  // Convert the Income object to a JSON object
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'category': category.index,
+      'date': date.toIso8601String(),
+      'time': time.toIso8601String(),
+      'description': description,
+    };
+  }
+
+  // Create an Income object from a JSON object
+  factory Income.fromJson(Map<String, dynamic> json) {
+    return Income(
+      id: json['id'],
+      title: json['title'],
+      amount: json['amount'],
+      category: IncomeCategory.values[json['category']],
+      date: DateTime.parse(json['date']),
+      time: DateTime.parse(json['time']),
+      description: json['description'],
+    );
+  }
 }
