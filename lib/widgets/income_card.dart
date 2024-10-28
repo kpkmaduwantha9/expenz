@@ -3,14 +3,14 @@ import 'package:expenz/models/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ExpenseCard extends StatelessWidget {
+class IncomeCard extends StatelessWidget {
   final String title;
   final DateTime date;
   final double amount;
   final IncomeCategory category;
   final String description;
   final DateTime time;
-  const ExpenseCard({
+  const IncomeCard({
     super.key,
     required this.title,
     required this.date,

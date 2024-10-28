@@ -225,7 +225,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                   ),
                                 ),
                                 items: _selectedMethod == 0
-                                    ? ExpenseCategory.values.map(
+                                    ? IncomeCategory.values.map(
                                         (category) {
                                           return DropdownMenuItem(
                                             value: category,
