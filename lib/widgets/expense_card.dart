@@ -7,7 +7,7 @@ class ExpenseCard extends StatelessWidget {
   final String title;
   final DateTime date;
   final double amount;
-  final IncomeCategory category;
+  final ExpenseCategory category;
   final String description;
   final DateTime time;
   const ExpenseCard({

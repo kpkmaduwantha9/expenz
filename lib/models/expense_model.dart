@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //enum for expense categories
-enum IncomeCategory {
+enum ExpenseCategory {
   food,
   transport,
   health,
@@ -10,21 +10,21 @@ enum IncomeCategory {
 }
 
 //category images
-final Map<IncomeCategory, String> expenseCategoriesImages = {
-  IncomeCategory.food: "assets/images/restaurant.png",
-  IncomeCategory.transport: "assets/images/car.png",
-  IncomeCategory.health: "assets/images/health.png",
-  IncomeCategory.shopping: "assets/images/bag.png",
-  IncomeCategory.subscriptions: "assets/images/bill.png",
+final Map<ExpenseCategory, String> expenseCategoriesImages = {
+  ExpenseCategory.food: "assets/images/restaurant.png",
+  ExpenseCategory.transport: "assets/images/car.png",
+  ExpenseCategory.health: "assets/images/health.png",
+  ExpenseCategory.shopping: "assets/images/bag.png",
+  ExpenseCategory.subscriptions: "assets/images/bill.png",
 };
 
 //category colors
-final Map<IncomeCategory, Color> expenseCategoryColors = {
-  IncomeCategory.food: const Color(0xFFE57373),
-  IncomeCategory.transport: const Color(0xFF81C784),
-  IncomeCategory.health: const Color(0xFF64B5F6),
-  IncomeCategory.shopping: const Color(0xFFFFD54F),
-  IncomeCategory.subscriptions: const Color(0xFF9575CD),
+final Map<ExpenseCategory, Color> expenseCategoryColors = {
+  ExpenseCategory.food: const Color(0xFFE57373),
+  ExpenseCategory.transport: const Color(0xFF81C784),
+  ExpenseCategory.health: const Color(0xFF64B5F6),
+  ExpenseCategory.shopping: const Color(0xFFFFD54F),
+  ExpenseCategory.subscriptions: const Color(0xFF9575CD),
 };
 
 //model
@@ -32,7 +32,7 @@ class Expense {
   final int id;
   final String title;
   final double amount;
-  final IncomeCategory category;
+  final ExpenseCategory category;
   final DateTime date;
   final DateTime time;
   final String description;
@@ -66,7 +66,7 @@ class Expense {
       id: json['id'],
       title: json['title'],
       amount: json['amount'],
-      category: IncomeCategory.values[json['category']],
+      category: ExpenseCategory.values[json['category']],
       date: DateTime.parse(json['date']),
       time: DateTime.parse(json['time']),
       description: json['description'],
