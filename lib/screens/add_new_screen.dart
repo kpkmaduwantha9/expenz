@@ -225,7 +225,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                   ),
                                 ),
                                 items: _selectedMethod == 0
-                                    ? IncomeCategory.values.map(
+                                    ? ExpenseCategory.values.map(
                                         (category) {
                                           return DropdownMenuItem(
                                             value: category,
@@ -367,13 +367,16 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                       ),
                                     ),
                                   ),
-                                  Text(
-                                    // DateFormat.yMMMd().format(_selectedDate),
-                                    DateFormat.yMMMMd().format(_selectedDate),
-                                    style: TextStyle(
-                                      color: kGrey,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
+                                  Flexible(
+                                    child: Text(
+                                      DateFormat.yMMMMd().format(_selectedDate),
+                                      style: TextStyle(
+                                        color: kGrey,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      overflow: TextOverflow
+                                          .ellipsis, // overflow issue
                                     ),
                                   ),
                                 ],
