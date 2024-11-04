@@ -1,12 +1,20 @@
 import 'package:expenz/constants/colors.dart';
 import 'package:expenz/constants/constants.dart';
+import 'package:expenz/models/expense_model.dart';
 import 'package:expenz/services/user_service.dart';
 import 'package:expenz/widgets/income_expence_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../widgets/expense_card.dart';
+import '../widgets/line_chart.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final List<Expense> expenseList;
+  const HomeScreen({
+    super.key,
+    required this.expenseList,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -39,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           //main column
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //colored column
               Container(
@@ -144,6 +153,94 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
+                ),
+              ),
+
+              //lineChart
+              Padding(
+                padding: REdgeInsets.all(
+                  kDefaultPadding,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Spend frequency",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    LineChartSample(),
+                  ],
+                ),
+              ),
+
+              //recent transaction
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Recent Transaction",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          "See All",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      children: [
+                        widget.expenseList.isEmpty
+                            ? Text(
+                                "No expenses added yet, add some expenses to see here\n ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: kGrey,
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: widget.expenseList.length,
+                                itemBuilder: (context, index) {
+                                  final expense = widget.expenseList[index];
+
+                                  return ExpenseCard(
+                                    title: expense.title,
+                                    date: expense.date,
+                                    amount: expense.amount,
+                                    category: expense.category,
+                                    description: expense.description,
+                                    time: expense.time,
+                                  );
+                                },
+                              )
+                      ],
+                    )
+                  ],
                 ),
               ),
             ],
