@@ -96,6 +96,7 @@ class _MainScreenState extends State<MainScreen> {
     final List<Widget> pages = [
       HomeScreen(
         expenseList: expenseList,
+        incomeList: incomeList,
       ),
       TransactionScreen(
         expensesList: expenseList,

@@ -6,14 +6,17 @@ import 'package:expenz/widgets/income_expence_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../models/income_model.dart';
 import '../widgets/expense_card.dart';
 import '../widgets/line_chart.dart';
 
 class HomeScreen extends StatefulWidget {
   final List<Expense> expenseList;
+  final List<Income> incomeList;
   const HomeScreen({
     super.key,
     required this.expenseList,
+    required this.incomeList,
   });
 
   @override
@@ -23,6 +26,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //for store the username
   String userName = "";
+
+  double expenseTotal = 0;
+  double incomeTotal = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -37,6 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
     );
+
+    setState(() {
+      //total amount of expenses
+      for (var i = 0; i < widget.expenseList.length; i++) {
+        expenseTotal += widget.expenseList[i].amount;
+      }
+
+      //total amount of income
+      for (var k = 0; k < widget.incomeList.length; k++) {
+        incomeTotal += widget.incomeList[k].amount;
+      }
+    });
+
     super.initState();
   }
 
@@ -138,13 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             IncomeExpenseCard(
                               title: "Income    ",
-                              amount: 25,
+                              amount: incomeTotal,
                               imageUrl: "assets/images/income.png",
                               bgColor: kGreen,
                             ),
                             IncomeExpenseCard(
                               title: "Expenses",
-                              amount: 20,
+                              amount: expenseTotal,
                               imageUrl: "assets/images/expense.png",
                               bgColor: kRed,
                             )
