@@ -72,7 +72,7 @@ class ExpenseCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 130,
+                      //width: 130,
                       child: Text(
                         description,
                         style: TextStyle(
