@@ -3,8 +3,18 @@ import 'package:expenz/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../models/expense_model.dart';
+import '../models/income_model.dart';
+import '../widgets/pie_chart_widget.dart';
+
 class BudgetScreen extends StatefulWidget {
-  const BudgetScreen({super.key});
+  final Map<ExpenseCategory, double> expenseCategoryTotal;
+  final Map<IncomeCategory, double> incomeCategoryTotal;
+  const BudgetScreen({
+    super.key,
+    required this.expenseCategoryTotal,
+    required this.incomeCategoryTotal,
+  });
 
   @override
   State<BudgetScreen> createState() => _BudgetScreenState();
@@ -133,6 +143,15 @@ class _BudgetScreenState extends State<BudgetScreen> {
 
                 /// - expense and income toggle
               ),
+              SizedBox(
+                height: 20,
+              ),
+              //Pie Chart
+              PieChartWidget(
+                expenseCategoryTotal: widget.expenseCategoryTotal,
+                incomeCategoryTotal: widget.incomeCategoryTotal,
+                isExpense: _SelectedOption == 0,
+              )
             ],
           ),
         ),

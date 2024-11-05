@@ -2,7 +2,7 @@ import 'package:expenz/constants/colors.dart';
 import 'package:expenz/models/expense_model.dart';
 import 'package:expenz/models/income_model.dart';
 import 'package:expenz/services/expense_service.dart';
-import 'package:expenz/services/income_servise.dart';
+import 'package:expenz/services/income_service.dart';
 import 'package:expenz/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

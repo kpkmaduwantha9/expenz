@@ -7,7 +7,7 @@ import 'package:expenz/screens/home_screen.dart';
 import 'package:expenz/screens/profile_screen.dart';
 import 'package:expenz/screens/transaction_screens.dart';
 import 'package:expenz/services/expense_service.dart';
-import 'package:expenz/services/income_servise.dart';
+import 'package:expenz/services/income_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -90,11 +90,45 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  //category total expenses
+  Map<ExpenseCategory, double> calculateExpenseCategories() {
+    Map<ExpenseCategory, double> categoryTotals = {
+      ExpenseCategory.food: 0,
+      ExpenseCategory.health: 0,
+      ExpenseCategory.shopping: 0,
+      ExpenseCategory.subscriptions: 0,
+      ExpenseCategory.transport: 0,
+    };
+    for (Expense expense in expenseList) {
+      categoryTotals[expense.category] =
+          categoryTotals[expense.category]! + expense.amount;
+    }
+    return categoryTotals;
+  }
+
+  //category total income
+  Map<IncomeCategory, double> calculateIncomeCategories() {
+    Map<IncomeCategory, double> categoryTotals = {
+      IncomeCategory.freelance: 0,
+      IncomeCategory.passive: 0,
+      IncomeCategory.salary: 0,
+      IncomeCategory.sales: 0,
+    };
+    for (Income income in incomeList) {
+      categoryTotals[income.category] =
+          categoryTotals[income.category]! + income.amount;
+    }
+    return categoryTotals;
+  }
+
   @override
   Widget build(BuildContext context) {
     // screen List
     final List<Widget> pages = [
-      const BudgetScreen(),
+      BudgetScreen(
+        expenseCategoryTotal: calculateExpenseCategories(),
+        incomeCategoryTotal: calculateIncomeCategories(),
+      ),
       HomeScreen(
         expenseList: expenseList,
         incomeList: incomeList,
