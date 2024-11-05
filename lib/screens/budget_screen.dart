@@ -1,5 +1,6 @@
 import 'package:expenz/constants/colors.dart';
 import 'package:expenz/constants/constants.dart';
+import 'package:expenz/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,9 +22,22 @@ class BudgetScreen extends StatefulWidget {
 }
 
 class _BudgetScreenState extends State<BudgetScreen> {
-  int _SelectedOption = 0;
+  int _selectedOption = 0;
+
+  //method to find category color from the category
+  Color getCategoryColor(dynamic category) {
+    if (category is ExpenseCategory) {
+      return expenseCategoryColors[category]!;
+    } else {
+      return incomeCategoryColor[category]!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final data = _selectedOption == 0
+        ? widget.expenseCategoryTotal
+        : widget.incomeCategoryTotal;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -68,13 +82,13 @@ class _BudgetScreenState extends State<BudgetScreen> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              _SelectedOption = 0;
+                              _selectedOption = 0;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: _SelectedOption == 1 ? kWhite : kRed,
+                              color: _selectedOption == 1 ? kWhite : kRed,
                             ),
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.43,
@@ -86,7 +100,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                                   "Expense",
                                   style: TextStyle(
                                     color:
-                                        _SelectedOption == 1 ? kBlack : kWhite,
+                                        _selectedOption == 1 ? kBlack : kWhite,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
@@ -106,13 +120,13 @@ class _BudgetScreenState extends State<BudgetScreen> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              _SelectedOption = 1;
+                              _selectedOption = 1;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: _SelectedOption == 0 ? kWhite : kGreen,
+                              color: _selectedOption == 0 ? kWhite : kGreen,
                             ),
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.43,
@@ -124,7 +138,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
                                   "Income",
                                   style: TextStyle(
                                     color:
-                                        _SelectedOption == 0 ? kBlack : kWhite,
+                                        _selectedOption == 0 ? kBlack : kWhite,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
@@ -144,14 +158,39 @@ class _BudgetScreenState extends State<BudgetScreen> {
                 /// - expense and income toggle
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               //Pie Chart
               PieChartWidget(
                 expenseCategoryTotal: widget.expenseCategoryTotal,
                 incomeCategoryTotal: widget.incomeCategoryTotal,
-                isExpense: _SelectedOption == 0,
-              )
+                isExpense: _selectedOption == 0,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              //list of categories
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    final category = data.keys.toList()[index];
+                    final total = data.values.toList()[index];
+                    return CategoryCard(
+                      title: category.name,
+                      amount: total,
+                      total: data.values.reduce(
+                        (value, element) => value + element,
+                      ),
+                      progressColor: getCategoryColor(category),
+                      isExpense: _selectedOption == 0,
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
