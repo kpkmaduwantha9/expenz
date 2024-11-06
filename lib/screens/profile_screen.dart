@@ -1,4 +1,7 @@
 import 'package:expenz/constants/constants.dart';
+import 'package:expenz/screens/onboarding_screen.dart';
+import 'package:expenz/services/expense_service.dart';
+import 'package:expenz/services/income_service.dart';
 import 'package:expenz/services/user_service.dart';
 import 'package:expenz/widgets/profile_card.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +66,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(kRed),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      //clear the user data
+                      await UserServices.ClearUserData();
+                      //clear all expenses and incomes
+                      if (context.mounted) {
+                        await ExpenseService().deleteAllExpence(context);
+                        await IncomeService().deleteAllIncome(context);
+
+                        //navigate to the onBoarding screen
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnboardingScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                    },
                     child: Text(
                       "Yes",
                       style: TextStyle(

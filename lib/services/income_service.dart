@@ -155,7 +155,7 @@ class IncomeService {
 
   //delete all income from shared preferences
 
-  Future<void> deleteAllExpence(BuildContext context) async {
+  Future<void> deleteAllIncome(BuildContext context) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       await pref.remove(_incomeKey);
