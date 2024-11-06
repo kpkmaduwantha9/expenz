@@ -61,4 +61,11 @@ class UserServices {
       "email": email!,
     };
   }
+
+  //remove the username and email from shared preferences
+  static Future<void> ClearUserData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove('userName');
+    await pref.remove('email');
+  }
 }

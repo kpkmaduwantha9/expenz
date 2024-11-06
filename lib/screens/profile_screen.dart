@@ -1,5 +1,6 @@
 import 'package:expenz/constants/constants.dart';
 import 'package:expenz/services/user_service.dart';
+import 'package:expenz/widgets/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +31,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
+
+  //open Scaffold messenger for layout
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      backgroundColor: kWhite,
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 180,
+          padding: EdgeInsets.all(kDefaultPadding),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Are you sure you want to log out?",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: kBlack,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(kRed),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Yes",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(kGreen),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "No",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  // - open Scaffold messenger for layout
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +173,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                const ProfileCard(
+                  icon: Icons.wallet,
+                  title: "My Wallet",
+                  color: kMainColor,
+                ),
+                const ProfileCard(
+                  icon: Icons.settings,
+                  title: "Settings",
+                  color: kYellow,
+                ),
+                const ProfileCard(
+                  icon: Icons.download,
+                  title: "Export Data",
+                  color: kGreen,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _showBottomSheet(context);
+                  },
+                  child: const ProfileCard(
+                    icon: Icons.logout,
+                    title: "Log Out",
+                    color: kRed,
+                  ),
                 ),
               ],
             ),
